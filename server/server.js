@@ -29,6 +29,7 @@ app.use(helmet());
 app.use(compression());
 
 // TODO: implement routes
+app.use("/auth", require("./routes/auth"));
 
 // route not found
 app.use("/", (req, res, next) => {
