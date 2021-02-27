@@ -8,12 +8,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@react-native-async-storage/async-storage": "^1.14.1",
+=======
+>>>>>>> f26a0dd304c3b7a7fa190b4e4aa5a3b006d2786b
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/material-bottom-tabs": "^5.3.14",
     "@react-navigation/native": "^5.9.3",
     "@react-navigation/stack": "^5.14.3",
+<<<<<<< HEAD
     "axios": "^0.21.1",
+=======
+>>>>>>> f26a0dd304c3b7a7fa190b4e4aa5a3b006d2786b
     "expo": "~40.0.0",
     "expo-status-bar": "~1.0.3",
     "react": "16.13.1",
