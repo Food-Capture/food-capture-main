@@ -3,6 +3,7 @@ const express = require("express");
 require("dotenv").config();
 const helmet = require("helmet");
 const compression = require("compression");
+const mongoose = require("mongoose");
 
 // create express app
 const app = express();
@@ -45,6 +46,13 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(PORT, () => {
-  console.log(`Server listening at http://localhost:${PORT}`);
-});
+mongoose
+  .connect(process.env.MDB_KEY, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server listening at http://localhost:${PORT}`);
+    });
+  });
