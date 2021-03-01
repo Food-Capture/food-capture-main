@@ -3,14 +3,13 @@ import { LOGIN, LOGOUT, SIGNUP } from "./types";
 
 import API from "../../api";
 
-export const signup = (name, email, password, type) => {
+export const signup = (name, email, password) => {
   return async (dispatch) => {
     try {
       const response = await API.post("auth/signup", {
         name,
         email,
         password,
-        type,
       });
 
       if (response.status != 201) throw new Error("Signup failed");

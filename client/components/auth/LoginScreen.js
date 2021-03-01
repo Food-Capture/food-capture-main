@@ -6,13 +6,13 @@ import { useDispatch } from "react-redux";
 
 import { login } from "../../redux/actions/auth";
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginHandler = async (props) => {
+  const loginHandler = async () => {
     try {
       await dispatch(login(email, password));
     } catch (error) {
@@ -27,6 +27,7 @@ const LoginScreen = () => {
       </View>
       <View style={styles.inputs}>
         <TextInput
+          style={styles.input}
           label="Email"
           value={email}
           onChangeText={(text) => {
@@ -34,6 +35,7 @@ const LoginScreen = () => {
           }}
         />
         <TextInput
+          style={styles.input}
           label="Password"
           value={password}
           onChangeText={(text) => {
@@ -43,9 +45,7 @@ const LoginScreen = () => {
         />
       </View>
       <View style={styles.actions}>
-        <Button mode="contained" onPress={loginHandler}>
-          Login
-        </Button>
+        <Button onPress={loginHandler}>Login</Button>
         <Button
           onPress={() => {
             props.navigation.navigate("Signup");
@@ -62,4 +62,5 @@ export default LoginScreen;
 
 const styles = StyleSheet.create({
   screen: { flex: 1, padding: 20, justifyContent: "space-around" },
+  input: { marginVertical: 5 },
 });
