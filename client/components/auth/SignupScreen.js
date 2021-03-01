@@ -43,6 +43,7 @@ const SignupScreen = (props) => {
           onChangeText={(text) => {
             setEmail(text);
           }}
+          autoCapitalize={"none"}
         />
         <TextInput
           style={styles.input}
@@ -51,7 +52,7 @@ const SignupScreen = (props) => {
           onChangeText={(text) => {
             setPassword(text);
           }}
-          secureTextEntry={true}
+          secureTextEntry
         />
         <TextInput
           style={styles.input}
@@ -60,7 +61,7 @@ const SignupScreen = (props) => {
           onChangeText={(text) => {
             setConfirmPassword(text);
           }}
-          secureTextEntry={true}
+          secureTextEntry
         />
       </View>
       <View style={styles.actions}>

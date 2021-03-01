@@ -33,6 +33,7 @@ const LoginScreen = (props) => {
           onChangeText={(text) => {
             setEmail(text);
           }}
+          autoCapitalize={"none"}
         />
         <TextInput
           style={styles.input}
@@ -41,7 +42,8 @@ const LoginScreen = (props) => {
           onChangeText={(text) => {
             setPassword(text);
           }}
-          secureTextEntry={true}
+          secureTextEntry
+          autoCapitalize={"none"}
         />
       </View>
       <View style={styles.actions}>
