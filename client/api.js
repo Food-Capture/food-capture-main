@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: `http://${uri}`,
+  baseURL: "https://food-capture.herokuapp.com/",
 });

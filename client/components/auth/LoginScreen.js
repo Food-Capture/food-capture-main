@@ -23,7 +23,7 @@ const LoginScreen = (props) => {
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.title}>
-        <Headline>Title</Headline>
+        <Headline>Food Capture</Headline>
       </View>
       <View style={styles.inputs}>
         <TextInput

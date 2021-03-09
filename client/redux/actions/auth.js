@@ -36,13 +36,11 @@ export const signup = (name, email, password) => {
 
 export const login = (email, password) => {
   return async (dispatch) => {
-    console.log("hey");
     try {
       const response = await API.post("auth/login", {
         email,
         password,
       });
-      console.log(response);
 
       if (response.status != 200) throw new Error("Login failed");
 

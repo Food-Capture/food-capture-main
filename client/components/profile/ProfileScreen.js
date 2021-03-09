@@ -15,7 +15,9 @@ const ProfileScreen = () => {
         onPress={() => {
           dispatch(logout());
         }}
-      />
+      >
+        Logout
+      </Button>
     </View>
   );
 };

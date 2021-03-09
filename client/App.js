@@ -9,6 +9,10 @@ import EntryNavigator from "./navigation/EntryNavigator";
 
 const theme = {
   ...DefaultTheme,
+  colors: {
+    primary: "#243665",
+    accent: "#8BD8BD",
+  },
 };
 
 export default function App() {
