@@ -34,6 +34,7 @@ app.use(compression());
 
 // TODO: implement routes
 app.use("/auth", require("./routes/auth"));
+app.use("/post", require("./routes/post"));
 
 // route not found
 app.use("/", (req, res, next) => {
