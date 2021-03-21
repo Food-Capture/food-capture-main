@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/", postController.createPost);
 
 // GET /post
-router.post("/", postController.getPosts);
+router.get("/", postController.getPosts);
 
 // GET /post/<postId>
 router.post("/:postId", postController.getPostDetails);

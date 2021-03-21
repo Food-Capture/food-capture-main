@@ -39,7 +39,7 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
   });
 
   res.json({
-    content: result.docs,
+    posts: result.docs,
     totalCount: result.total,
     totalPages: Math.ceil(result.total / postsPerPage),
   });
@@ -54,7 +54,7 @@ exports.getPostDetails = asyncHandler(async (req, res, next) => {
 
   // post not found
   if (!result) {
-    const error = new Error("No content with this id found");
+    const error = new Error("No post with this id found");
     error.statusCode = 404;
     throw error;
   }
