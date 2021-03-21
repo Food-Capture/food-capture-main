@@ -16,6 +16,6 @@ router.post("/", postController.createPost);
 router.post("/", postController.getPosts);
 
 // GET /post/<postId>
-route.post("/:postId", postController.getPostDetails);
+router.post("/:postId", postController.getPostDetails);
 
 module.exports = router;

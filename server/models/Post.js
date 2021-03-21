@@ -34,4 +34,4 @@ const PostSchema = new mongoose.Schema(
 
 PostSchema.plugin(mongoosePaginate);
 
-module.exports = mongoose.model("content", PostSchema);
+module.exports = mongoose.model("post", PostSchema);
