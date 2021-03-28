@@ -31,6 +31,10 @@ const EntryNavigator = () => {
     };
 
     tryLogin();
+
+    return () => {
+      setIsLoading(false);
+    };
   }, [userId]);
 
   if (isLoading) {

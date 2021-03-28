@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Headline, TextInput, Button } from "react-native-paper";
 import { useDispatch } from "react-redux";
@@ -16,57 +16,59 @@ const SignupScreen = (props) => {
 
   const signupHandler = async () => {
     try {
-      await dispatch(signup(email, password));
+      await dispatch(signup(name, email, password));
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <View style={styles.title}>
-        <Headline>Signup</Headline>
-      </View>
-      <View style={styles.inputs}>
-        <TextInput
-          style={styles.input}
-          label="Name"
-          value={name}
-          onChangeText={(text) => {
-            setName(text);
-          }}
-        />
-        <TextInput
-          style={styles.input}
-          label="Email"
-          value={email}
-          onChangeText={(text) => {
-            setEmail(text);
-          }}
-          autoCapitalize={"none"}
-        />
-        <TextInput
-          style={styles.input}
-          label="Password"
-          value={password}
-          onChangeText={(text) => {
-            setPassword(text);
-          }}
-          secureTextEntry
-        />
-        <TextInput
-          style={styles.input}
-          label="Confirm Password"
-          value={confirmPassword}
-          onChangeText={(text) => {
-            setConfirmPassword(text);
-          }}
-          secureTextEntry
-        />
-      </View>
-      <View style={styles.actions}>
-        <Button onPress={signupHandler}>Create Account</Button>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.screen}>
+        <View style={styles.title}>
+          <Headline>Signup</Headline>
+        </View>
+        <View style={styles.inputs}>
+          <TextInput
+            style={styles.input}
+            label="Name"
+            value={name}
+            onChangeText={(text) => {
+              setName(text);
+            }}
+          />
+          <TextInput
+            style={styles.input}
+            label="Email"
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+            autoCapitalize={"none"}
+          />
+          <TextInput
+            style={styles.input}
+            label="Password"
+            value={password}
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            secureTextEntry
+          />
+          <TextInput
+            style={styles.input}
+            label="Confirm Password"
+            value={confirmPassword}
+            onChangeText={(text) => {
+              setConfirmPassword(text);
+            }}
+            secureTextEntry
+          />
+        </View>
+        <View style={styles.actions}>
+          <Button onPress={signupHandler}>Create Account</Button>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
