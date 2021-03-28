@@ -4,13 +4,15 @@ import { Caption, ActivityIndicator } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import API from "../../api";
+import FeedPost from "./FeedPost";
 
-const FeedScreen = () => {
+const FeedScreen = (props) => {
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  console.log(posts[0]);
 
   // get user token
   const token = useSelector((state) => state.auth.token);
@@ -77,7 +79,7 @@ const FeedScreen = () => {
         }}
         keyExtractor={(item, index) => item._id.toString()}
         renderItem={({ item, index }) => {
-          return <Text>{item.title}</Text>;
+          return <FeedPost post={item} navigation={props.navigation} />;
         }}
         refreshing={isRefreshing}
         onRefresh={refresh}

@@ -48,5 +48,3 @@ const MainTabNavigator = () => {
 };
 
 export default MainTabNavigator;
-
-const styles = StyleSheet.create({});

@@ -3,7 +3,6 @@ const express = require("express");
 
 // internal imports
 const postController = require("../controllers/post");
-const { route } = require("./auth");
 
 const router = express.Router();
 
@@ -16,6 +15,6 @@ router.post("/", postController.createPost);
 router.get("/", postController.getPosts);
 
 // GET /post/<postId>
-router.post("/:postId", postController.getPostDetails);
+router.get("/:postId", postController.getPostDetails);
 
 module.exports = router;
