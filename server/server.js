@@ -32,9 +32,9 @@ app.use((req, res, next) => {
 app.use(helmet());
 app.use(compression());
 
-// TODO: implement routes
 app.use("/auth", require("./routes/auth"));
 app.use("/post", require("./routes/post"));
+app.use("/user", require("./routes/user"));
 
 // route not found
 app.use("/", (req, res, next) => {
