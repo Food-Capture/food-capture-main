@@ -12,7 +12,6 @@ const FeedScreen = (props) => {
   const [totalPages, setTotalPages] = useState(1);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(posts[0]);
 
   // get user token
   const token = useSelector((state) => state.auth.token);
