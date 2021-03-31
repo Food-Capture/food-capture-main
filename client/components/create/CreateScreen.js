@@ -52,7 +52,9 @@ const CreateScreen = (props) => {
     formData.append("allergens", allergens);
     formData.append("collectBy", collectBy.toUTCString());
     formData.append("description", description);
-    formData.append("image", image);
+    if (image && image.uri) {
+      formData.append("image", image);
+    }
 
     try {
       const response = await API.post("post", formData, {

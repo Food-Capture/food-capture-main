@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 
 const FeedPost = (props) => {
   return (
@@ -10,6 +10,12 @@ const FeedPost = (props) => {
     >
       <View>
         <Text>{props.post.title}</Text>
+        {props.post.image && props.post.image.url && (
+          <Image
+            source={{ uri: props.post.image.url }}
+            style={{ height: 300 }}
+          />
+        )}
         <Text>Location: {props.post.location}</Text>
         <Text>
           Collect By: {new Date(props.post.collectBy).toLocaleString()}
