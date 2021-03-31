@@ -1,5 +1,6 @@
 // node imports
 const asyncHandler = require("express-async-handler");
+const cloudinary = require("cloudinary").v2;
 
 // internal imports
 const Post = require("../models/Post");
@@ -12,6 +13,10 @@ exports.createPost = asyncHandler(async (req, res, next) => {
   const allergens = req.body.allergens;
   const collectBy = req.body.collectBy;
   const description = req.body.description;
+  let image = null;
+  if (req.file) {
+    image = { url: req.file.path, id: req.file.filename };
+  }
 
   const post = new Post({
     title,
@@ -20,6 +25,7 @@ exports.createPost = asyncHandler(async (req, res, next) => {
     allergens,
     collectBy,
     description,
+    image,
   });
   const result = await post.save();
 
@@ -62,4 +68,28 @@ exports.getPostDetails = asyncHandler(async (req, res, next) => {
   res.json(result);
 });
 
-// TODO: delete and update
+exports.deletePost = asyncHandler(async (req, res, next) => {
+  const postId = req.params.postId;
+
+  // find post
+  const post = await Post.findById(postId);
+
+  // post not found
+  if (!post) {
+    const error = new Error("No post with this id found");
+    error.statusCode = 404;
+    throw error;
+  }
+
+  // delete image of post
+  if (post.image && post.image.id) {
+    await cloudinary.uploader.destroy(post.image.id);
+  }
+
+  // carry out deletion
+  await Post.findByIdAndDelete(postId);
+
+  res.json({ message: "Post deleted" });
+});
+
+// TODO: update
