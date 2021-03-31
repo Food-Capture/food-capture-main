@@ -27,14 +27,15 @@ const ProfileScreen = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log(response.data);
-
       if (response.status === 200) {
         setName(response.data.user.name);
         setEmail(response.data.user.email);
-        console.log(response.date);
-        if (response.data.profilePic) {
-          setProfilePic(response.data.profilePic.url);
+
+        if (
+          response.data.user.profilePic &&
+          response.data.user.profilePic.url
+        ) {
+          setProfilePic(response.data.user.profilePic.url);
         } else {
           // default pic
           setProfilePic(
@@ -51,13 +52,14 @@ const ProfileScreen = () => {
 
   // select photo
   const pickImage = async () => {
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (permissionResult.granted === false) {
       alert("Permission to access camera roll is required.");
       return;
     }
 
+    // select from library
     const pickerResult = await ImagePicker.launchImageLibraryAsync();
     if (pickerResult.cancelled) {
       return;
@@ -76,10 +78,11 @@ const ProfileScreen = () => {
 
     // update
     try {
-      // Upload the image using the fetch and FormData APIs
+      // prepare form data
       let formData = new FormData();
-      // Assume "photo" is the name of the form field the server expects
       formData.append("image", { uri: localUri, name: filename, type });
+
+      // upload image to server
       const response = await API.post("user/image", formData, {
         headers: { Authorization: `Bearer ${token}` },
       });

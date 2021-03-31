@@ -5,10 +5,12 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { Button, Checkbox, Snackbar, TextInput } from "react-native-paper";
 import { useSelector } from "react-redux";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as ImagePicker from "expo-image-picker";
 
 import API from "../../api";
 
@@ -19,6 +21,7 @@ const CreateScreen = (props) => {
   const [allergens, setAllergens] = useState("");
   const [collectBy, setCollectBy] = useState(new Date());
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
 
   const [created, setCreated] = useState(false);
 
@@ -41,17 +44,23 @@ const CreateScreen = (props) => {
   };
 
   const createPost = async () => {
-    const response = await API.post(
-      "post",
-      { title, location, containsMeat, allergens, collectBy, description },
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    // prepare form data
+    let formData = new FormData();
+    formData.append("title", title);
+    formData.append("location", location);
+    formData.append("containsMeat", containsMeat);
+    formData.append("allergens", allergens);
+    formData.append("collectBy", collectBy.toUTCString());
+    formData.append("description", description);
+    formData.append("image", image);
 
-    if (response.status !== 201) {
+    try {
+      const response = await API.post("post", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (e) {
       // TODO: Handle ERROR
-      console.log("failed");
+      console.log(e);
       return;
     }
 
@@ -62,6 +71,33 @@ const CreateScreen = (props) => {
     setContainsMeat(false);
     setAllergens("");
     setDescription("");
+    setImage(null);
+  };
+
+  // select photo
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required.");
+      return;
+    }
+
+    // select from library
+    const pickerResult = await ImagePicker.launchCameraAsync();
+    if (pickerResult.cancelled) {
+      return;
+    }
+
+    let localUri = pickerResult.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // change image
+    setImage({ uri: localUri, name: filename, type });
   };
 
   // set date to 2 hours from now
@@ -82,6 +118,22 @@ const CreateScreen = (props) => {
             setTitle(text);
           }}
         />
+        <View style={{ marginBottom: 10 }}>
+          <TouchableOpacity onPress={pickImage}>
+            {image ? (
+              <Image
+                source={{
+                  uri: image.uri,
+                }}
+                style={{ height: 300 }}
+              />
+            ) : (
+              <View style={styles.imageSelect}>
+                <Text>Upload Image</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
         <TextInput
           label="Location"
           style={styles.textInput}
@@ -148,7 +200,9 @@ const CreateScreen = (props) => {
           }}
         />
         <Button onPress={createPost}>Create Post</Button>
+        <View style={{ height: 50 } /*To fix bottom tabs blocking */}></View>
       </ScrollView>
+
       <Snackbar
         visible={created}
         onDismiss={() => {
@@ -179,5 +233,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
+  },
+  imageSelect: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: 300,
   },
 });
