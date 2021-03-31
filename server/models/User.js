@@ -14,6 +14,10 @@ const userSchema = Schema({
     type: String,
     required: true,
   },
+  profilePic: {
+    url: { type: String },
+    id: { type: String },
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
