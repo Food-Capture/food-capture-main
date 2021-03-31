@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Caption, ActivityIndicator } from "react-native-paper";
+import { Caption, ActivityIndicator, Divider } from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import API from "../../api";
@@ -62,7 +62,11 @@ const FeedScreen = (props) => {
     <View style={styles.screen}>
       <FlatList
         data={posts}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        ItemSeparatorComponent={() => (
+          <View style={{ marginVertical: 10 }}>
+            <Divider />
+          </View>
+        )}
         ListFooterComponent={() => {
           if (isLoading) {
             return <View></View>;

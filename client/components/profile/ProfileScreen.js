@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, ActivityIndicator } from "react-native-paper";
+import { Button, ActivityIndicator, Avatar } from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
 
 import API from "../../api";
 import { logout } from "../../redux/actions/auth";
@@ -10,6 +11,9 @@ const ProfileScreen = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [profilePic, setProfilePic] = useState(
+    "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+  );
   const [loading, setLoading] = useState(false);
 
   // get user token
@@ -28,6 +32,15 @@ const ProfileScreen = () => {
       if (response.status === 200) {
         setName(response.data.user.name);
         setEmail(response.data.user.email);
+        console.log(response.date);
+        if (response.data.profilePic) {
+          setProfilePic(response.data.profilePic.url);
+        } else {
+          // default pic
+          setProfilePic(
+            "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
+          );
+        }
       }
 
       setLoading(false);
@@ -35,6 +48,48 @@ const ProfileScreen = () => {
 
     fetchUserDetails();
   }, []);
+
+  // select photo
+  const pickImage = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required.");
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    if (pickerResult.cancelled) {
+      return;
+    }
+
+    let localUri = pickerResult.uri;
+    let filename = localUri.split("/").pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // change image
+    const prevPic = profilePic; // store prev pic in case update failed
+    setProfilePic(localUri);
+
+    // update
+    try {
+      // Upload the image using the fetch and FormData APIs
+      let formData = new FormData();
+      // Assume "photo" is the name of the form field the server expects
+      formData.append("image", { uri: localUri, name: filename, type });
+      const response = await API.post("user/image", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response);
+    } catch (e) {
+      // ERROR - if failed, revert
+      setProfilePic(prevPic);
+      console.log("Profile pic update failed");
+    }
+  };
 
   // loading screen if loading
   if (loading) {
@@ -47,6 +102,12 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.screen}>
+      <Avatar.Image
+        size={125}
+        style={{ alignSelf: "center", marginBottom: 20 }}
+        source={{ uri: profilePic }}
+        onTouchEnd={pickImage}
+      />
       <Text>Name: {name}</Text>
       <Text>Email: {email}</Text>
       <Button

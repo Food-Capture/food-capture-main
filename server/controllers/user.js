@@ -7,7 +7,7 @@ const User = require("../models/User");
 
 exports.getUserDetails = asyncHandler(async (req, res, next) => {
   // userId retrieved from token - user can only request their own information
-  const user = await User.findById(req.userId, "name email");
+  const user = await User.findById(req.userId, "name email profilePic");
 
   if (!user) {
     const error = new Error("User not found");
