@@ -16,7 +16,7 @@ const EntryNavigator = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // check if user information is stored
+    // check if user information is stored (for auto login)
     const tryLogin = async () => {
       setIsLoading(true);
 
