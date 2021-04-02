@@ -35,7 +35,7 @@ const EntryNavigator = () => {
     return () => {
       setIsLoading(false);
     };
-  }, [userId]);
+  }, []);
 
   if (isLoading) {
     // loading screen

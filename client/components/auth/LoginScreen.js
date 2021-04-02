@@ -47,7 +47,9 @@ const LoginScreen = (props) => {
         />
       </View>
       <View style={styles.actions}>
-        <Button onPress={loginHandler}>Login</Button>
+        <Button onPress={loginHandler} mode="contained">
+          Login
+        </Button>
         <Button
           onPress={() => {
             props.navigation.navigate("Signup");

@@ -66,7 +66,9 @@ const SignupScreen = (props) => {
           />
         </View>
         <View style={styles.actions}>
-          <Button onPress={signupHandler}>Create Account</Button>
+          <Button onPress={signupHandler} mode="contained">
+            Create Account
+          </Button>
         </View>
       </ScrollView>
     </SafeAreaView>
