@@ -201,7 +201,9 @@ const CreateScreen = (props) => {
             setDescription(text);
           }}
         />
-        <Button onPress={createPost}>Create Post</Button>
+        <Button onPress={createPost} mode="contained">
+          Create Post
+        </Button>
         <View style={{ height: 50 } /*To fix bottom tabs blocking */}></View>
       </ScrollView>
 
