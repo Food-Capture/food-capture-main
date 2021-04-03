@@ -60,7 +60,13 @@ const ProfileScreen = () => {
     }
 
     // select from library
-    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+    const pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
     if (pickerResult.cancelled) {
       return;
     }
