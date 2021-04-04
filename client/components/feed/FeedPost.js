@@ -1,5 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import { BorderlessButton } from "react-native-gesture-handler";
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 const FeedPost = (props) => {
   return (
@@ -9,17 +11,22 @@ const FeedPost = (props) => {
       }}
     >
       <View>
-        <Text>{props.post.title}</Text>
+      <Card>
+        <Card.Content>
+        <Title style={styles.title}>{props.post.title}</Title>
+        </Card.Content>
+
         {props.post.image && props.post.image.url && (
-          <Image
-            source={{ uri: props.post.image.url }}
-            style={{ height: 300 }}
-          />
+          <Card.Cover source={{ uri: props.post.image.url }} style={{ height: 200 }}/>
         )}
-        <Text>Location: {props.post.location}</Text>
-        <Text>
-          Collect By: {new Date(props.post.collectBy).toLocaleString()}
-        </Text>
+
+
+        <Card.Content>
+        {/* <Title style={styles.title}>{props.post.title}</Title> */}
+        <Text style={styles.field}><Text style={styles.fieldName}>Location:</Text> {props.post.location}</Text>
+        <Text style={styles.field}><Text style={styles.fieldName}>Collected by:</Text> {new Date(props.post.collectBy).toLocaleString()}</Text>
+        </Card.Content>
+      </Card>
       </View>
     </TouchableOpacity>
   );
@@ -27,4 +34,8 @@ const FeedPost = (props) => {
 
 export default FeedPost;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: { flex: 1, marginTop: 10, marginBottom:10, fontFamily:  "Verdana", fontWeight: "bold", fontSize: 20},
+  fieldName: { fontWeight: "bold"},
+  field: {marginTop: 10, fontSize: 15, fontFamily:  "Verdana"}
+});
