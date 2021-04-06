@@ -9,7 +9,17 @@ const PostStack = createStackNavigator();
 const PostNavigator = () => {
   return (
     <PostStack.Navigator>
-      <PostStack.Screen name="Create" component={CreateScreen} />
+      <PostStack.Screen name="Create" component={CreateScreen} 
+      options={{
+        title: 'Create',
+        headerStyle: {
+          backgroundColor: '#243665',
+        },
+        headerTitleStyle: {
+          color: "#CCD7D2"
+        },
+      }}
+      />
     </PostStack.Navigator>
   );
 };

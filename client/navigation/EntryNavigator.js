@@ -52,5 +52,5 @@ const EntryNavigator = () => {
 export default EntryNavigator;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, justifyContent: "center" },
+  screen: { flex: 1,  justifyContent: "center"},
 });

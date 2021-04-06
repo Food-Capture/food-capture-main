@@ -131,7 +131,7 @@ const CreateScreen = (props) => {
               />
             ) : (
               <View style={styles.imageSelect}>
-                <Text>Upload Image</Text>
+                <Text style={styles.instruction}>Upload Image</Text>
               </View>
             )}
           </TouchableOpacity>
@@ -153,8 +153,8 @@ const CreateScreen = (props) => {
           }}
         />
         <View style={styles.check}>
-          <Text>Contains Meat</Text>
-          <Checkbox
+          <Text style={styles.field}>Contains Meat</Text>
+          <Checkbox 
             status={containsMeat ? "checked" : "unchecked"}
             onPress={() => {
               setContainsMeat(!containsMeat);
@@ -168,8 +168,8 @@ const CreateScreen = (props) => {
             }}
           >
             <View style={styles.selector}>
-              <Text>Collect By (Date)</Text>
-              <Text>{collectBy.toDateString()}</Text>
+              <Text style={styles.field}>Collect By (Date)</Text>
+              <Text style={styles.info}>{collectBy.toDateString()}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -178,8 +178,8 @@ const CreateScreen = (props) => {
             }}
           >
             <View style={styles.selector}>
-              <Text>Collect By (Time)</Text>
-              <Text>{collectBy.toLocaleTimeString()}</Text>
+              <Text style={styles.field}>Collect By (Time)</Text>
+              <Text style={styles.info}>{collectBy.toLocaleTimeString()}</Text>
             </View>
           </TouchableOpacity>
           {show && (
@@ -194,7 +194,7 @@ const CreateScreen = (props) => {
         </View>
         <TextInput
           label="Description"
-          style={styles.textInput}
+          style={styles.description}
           multiline
           value={description}
           onChangeText={(text) => {
@@ -223,9 +223,10 @@ const CreateScreen = (props) => {
 export default CreateScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
+  screen: { flex: 1 , backgroundColor: "#CCD7D2"},
   inputs: { padding: 20 },
-  textInput: { marginBottom: 10 },
+  textInput: { marginBottom: 10},
+  description: { height: 100, marginBottom: 10, marginTop: 10},
   check: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -243,4 +244,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 300,
   },
+  instruction: {
+    color: "#243665"
+  },
+  field: {
+    color: "#243665",
+    fontWeight: "bold"
+  },
+  info: {
+    color: "#1F79FB"
+  },
+  
 });

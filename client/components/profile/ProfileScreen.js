@@ -117,9 +117,9 @@ const ProfileScreen = () => {
         source={{ uri: profilePic }}
         onTouchEnd={pickImage}
       />
-      <Text>Name: {name}</Text>
-      <Text>Email: {email}</Text>
-      <Button
+      <Text style={styles.field}>Name: {name}</Text>
+      <Text style={styles.field}>Email: {email}</Text>
+      <Button style={styles.button} 
         icon="logout"
         onPress={() => {
           dispatch(logout());
@@ -134,6 +134,8 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20 },
+  screen: { flex: 1, padding: 20, backgroundColor: "#CCD7D2"},
   loadingScreen: { flex: 1, justifyContent: "center" },
+  field: {marginTop: 15, marginBottom: 15, fontSize: 17, color: "#243665", textAlign: "center"},
+  button: {marginTop: 15}
 });
