@@ -13,6 +13,7 @@ const FeedPost = (props) => {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.9}
       onPress={() => {
         props.navigation.navigate("Details", props.post);
       }}
