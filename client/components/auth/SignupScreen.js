@@ -26,7 +26,7 @@ const SignupScreen = (props) => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView contentContainerStyle={styles.screen}>
         <View style={styles.title}>
-          <Headline>Signup</Headline>
+          <Headline style={styles.title}>Signup</Headline>
         </View>
         <View style={styles.inputs}>
           <TextInput
@@ -78,6 +78,7 @@ const SignupScreen = (props) => {
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20, justifyContent: "space-around" },
+  title: {fontWeight: "bold", fontSize: 30, color: "#243665"},
+  screen: { flex: 1, padding: 20, justifyContent: "space-around",backgroundColor: "#CCD7D2"},
   input: { marginVertical: 5 },
 });

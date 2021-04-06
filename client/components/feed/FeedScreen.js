@@ -96,5 +96,6 @@ const FeedScreen = (props) => {
 export default FeedScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20, justifyContent: "space-around" },
+  screen: { flex: 1, padding: 20, justifyContent: "space-around", backgroundColor: "#CCD7D2"},
+  
 });

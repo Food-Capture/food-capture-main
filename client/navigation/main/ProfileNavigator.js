@@ -8,7 +8,17 @@ const ProfileStack = createStackNavigator();
 const ProfileNavigator = () => {
   return (
     <ProfileStack.Navigator>
-      <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+      <ProfileStack.Screen name="Profile" component={ProfileScreen}
+      options={{
+        title: 'Profile',
+        headerStyle: {
+          backgroundColor: '#243665',
+        },
+        headerTitleStyle: {
+          color: "#CCD7D2"
+        },
+      }}
+      />
     </ProfileStack.Navigator>
   );
 };

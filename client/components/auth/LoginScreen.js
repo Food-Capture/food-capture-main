@@ -22,8 +22,8 @@ const LoginScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <View style={styles.title}>
-        <Headline>Food Capture</Headline>
+      <View>
+        <Headline style={styles.title}>Food Capture</Headline>
       </View>
       <View style={styles.inputs}>
         <TextInput
@@ -65,6 +65,7 @@ const LoginScreen = (props) => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20, justifyContent: "space-around" },
+  title: {fontWeight: "bold", fontSize: 30, color: "#243665"},
+  screen: { flex: 1, padding: 20, justifyContent: "space-around", backgroundColor: "#CCD7D2"},
   input: { marginVertical: 5 },
 });
