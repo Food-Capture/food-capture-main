@@ -7,7 +7,13 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { Button, Checkbox, Snackbar, TextInput } from "react-native-paper";
+import {
+  Button,
+  Checkbox,
+  Snackbar,
+  TextInput,
+  useTheme,
+} from "react-native-paper";
 import { useSelector } from "react-redux";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
@@ -24,6 +30,8 @@ const CreateScreen = (props) => {
   const [image, setImage] = useState(null);
 
   const [created, setCreated] = useState(false);
+
+  const { colors, fonts } = useTheme();
 
   // get user token
   const token = useSelector((state) => state.auth.token);
@@ -110,10 +118,11 @@ const CreateScreen = (props) => {
   }, []);
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <ScrollView style={styles.inputs}>
         <TextInput
           label="Title"
+          mode="outlined"
           style={styles.textInput}
           value={title}
           onChangeText={(text) => {
@@ -137,6 +146,7 @@ const CreateScreen = (props) => {
           </TouchableOpacity>
         </View>
         <TextInput
+          mode="outlined"
           label="Location"
           style={styles.textInput}
           value={location}
@@ -145,6 +155,7 @@ const CreateScreen = (props) => {
           }}
         />
         <TextInput
+          mode="outlined"
           label="Allergens"
           style={styles.textInput}
           value={allergens}
@@ -154,7 +165,7 @@ const CreateScreen = (props) => {
         />
         <View style={styles.check}>
           <Text style={styles.field}>Contains Meat</Text>
-          <Checkbox 
+          <Checkbox
             status={containsMeat ? "checked" : "unchecked"}
             onPress={() => {
               setContainsMeat(!containsMeat);
@@ -193,6 +204,7 @@ const CreateScreen = (props) => {
           )}
         </View>
         <TextInput
+          mode="outlined"
           label="Description"
           style={styles.description}
           multiline
@@ -223,10 +235,10 @@ const CreateScreen = (props) => {
 export default CreateScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 , backgroundColor: "#CCD7D2"},
+  screen: { flex: 1 },
   inputs: { padding: 20 },
-  textInput: { marginBottom: 10},
-  description: { height: 100, marginBottom: 10, marginTop: 10},
+  textInput: { marginBottom: 10, backgroundColor: "#ffffff" },
+  description: { height: 100, marginBottom: 10, marginTop: 10 },
   check: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -245,14 +257,13 @@ const styles = StyleSheet.create({
     height: 300,
   },
   instruction: {
-    color: "#243665"
+    color: "#243665",
   },
   field: {
     color: "#243665",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   info: {
-    color: "#1F79FB"
+    color: "#1F79FB",
   },
-  
 });

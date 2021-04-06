@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Caption, ActivityIndicator, Divider } from "react-native-paper";
+import {
+  Caption,
+  ActivityIndicator,
+  Divider,
+  useTheme,
+} from "react-native-paper";
 import { useSelector } from "react-redux";
 
 import API from "../../api";
@@ -12,6 +17,8 @@ const FeedScreen = (props) => {
   const [totalPages, setTotalPages] = useState(1);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { colors, fonts } = useTheme();
 
   // get user token
   const token = useSelector((state) => state.auth.token);
@@ -59,7 +66,7 @@ const FeedScreen = (props) => {
   }, []);
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <FlatList
         data={posts}
         ItemSeparatorComponent={() => (
@@ -96,6 +103,10 @@ const FeedScreen = (props) => {
 export default FeedScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20, justifyContent: "space-around", backgroundColor: "#CCD7D2"},
-  
+  screen: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "space-around",
+    // backgroundColor: "#CCD7D2",
+  },
 });

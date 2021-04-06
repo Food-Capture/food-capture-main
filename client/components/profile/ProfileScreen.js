@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, ActivityIndicator, Avatar } from "react-native-paper";
+import {
+  Button,
+  ActivityIndicator,
+  Avatar,
+  useTheme,
+} from "react-native-paper";
 import { useDispatch, useSelector } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 
@@ -15,6 +20,8 @@ const ProfileScreen = () => {
     "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"
   );
   const [loading, setLoading] = useState(false);
+
+  const { colors, fonts } = useTheme();
 
   // get user token
   const token = useSelector((state) => state.auth.token);
@@ -110,7 +117,7 @@ const ProfileScreen = () => {
   }
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { backgroundColor: colors.background }]}>
       <Avatar.Image
         size={125}
         style={{ alignSelf: "center", marginBottom: 20 }}
@@ -119,7 +126,8 @@ const ProfileScreen = () => {
       />
       <Text style={styles.field}>Name: {name}</Text>
       <Text style={styles.field}>Email: {email}</Text>
-      <Button style={styles.button} 
+      <Button
+        style={styles.button}
         icon="logout"
         onPress={() => {
           dispatch(logout());
@@ -134,8 +142,14 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, padding: 20, backgroundColor: "#CCD7D2"},
+  screen: { flex: 1, padding: 20 },
   loadingScreen: { flex: 1, justifyContent: "center" },
-  field: {marginTop: 15, marginBottom: 15, fontSize: 17, color: "#243665", textAlign: "center"},
-  button: {marginTop: 15}
+  field: {
+    marginTop: 15,
+    marginBottom: 15,
+    fontSize: 17,
+    color: "#243665",
+    textAlign: "center",
+  },
+  button: { marginTop: 15 },
 });

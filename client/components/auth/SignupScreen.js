@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Headline, TextInput, Button } from "react-native-paper";
+import { Headline, TextInput, Button, useTheme } from "react-native-paper";
 import { useDispatch } from "react-redux";
 
 import { signup } from "../../redux/actions/auth";
 
 const SignupScreen = (props) => {
   const dispatch = useDispatch();
+
+  const { colors, fonts } = useTheme();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,12 +26,25 @@ const SignupScreen = (props) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={styles.screen}>
-        <View style={styles.title}>
-          <Headline style={styles.title}>Signup</Headline>
+      <ScrollView
+        contentContainerStyle={[
+          styles.screen,
+          { backgroundColor: colors.background },
+        ]}
+      >
+        <View>
+          <Headline
+            style={[
+              styles.title,
+              { color: colors.primary, fontFamily: fonts.regular.fontFamily },
+            ]}
+          >
+            Signup
+          </Headline>
         </View>
         <View style={styles.inputs}>
           <TextInput
+            mode="outlined"
             style={styles.input}
             label="Name"
             value={name}
@@ -38,6 +53,7 @@ const SignupScreen = (props) => {
             }}
           />
           <TextInput
+            mode="outlined"
             style={styles.input}
             label="Email"
             value={email}
@@ -47,6 +63,7 @@ const SignupScreen = (props) => {
             autoCapitalize={"none"}
           />
           <TextInput
+            mode="outlined"
             style={styles.input}
             label="Password"
             value={password}
@@ -56,6 +73,7 @@ const SignupScreen = (props) => {
             secureTextEntry
           />
           <TextInput
+            mode="outlined"
             style={styles.input}
             label="Confirm Password"
             value={confirmPassword}
@@ -78,7 +96,17 @@ const SignupScreen = (props) => {
 export default SignupScreen;
 
 const styles = StyleSheet.create({
-  title: {fontWeight: "bold", fontSize: 30, color: "#243665"},
-  screen: { flex: 1, padding: 20, justifyContent: "space-around",backgroundColor: "#CCD7D2"},
-  input: { marginVertical: 5 },
+  title: {
+    fontWeight: "bold",
+    fontSize: 40,
+    textAlign: "center",
+    paddingTop: 15,
+  },
+  screen: {
+    flex: 1,
+    padding: 20,
+    justifyContent: "space-around",
+    // backgroundColor: "#CCD7D2"
+  },
+  input: { marginVertical: 5, backgroundColor: "#ffffff" },
 });
