@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Headline,
@@ -7,10 +7,12 @@ import {
   Button,
   useTheme,
   Subheading,
+  Snackbar,
 } from "react-native-paper";
 import { useDispatch } from "react-redux";
 
 import { login } from "../../redux/actions/auth";
+import API from "../../api";
 
 const LoginScreen = (props) => {
   const dispatch = useDispatch();
@@ -18,13 +20,27 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const { colors, fonts } = useTheme();
 
   const loginHandler = async () => {
     try {
-      await dispatch(login(email, password));
+      const response = await API.post("auth/login", {
+        email,
+        password,
+      });
+
+      await dispatch(login(response.data.token, response.data.userId));
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.response.data.message);
+      setShowError(true);
+
+      // clear fields
+      setEmail("");
+      setPassword("");
+      Keyboard.dismiss();
     }
   };
 
@@ -85,6 +101,16 @@ const LoginScreen = (props) => {
           Create Account
         </Button>
       </View>
+      <Snackbar
+        visible={showError}
+        onDismiss={() => {
+          setShowError(false);
+        }}
+        duration={3000}
+        style={{ backgroundColor: "red" }}
+      >
+        {errorMessage}
+      </Snackbar>
     </SafeAreaView>
   );
 };
