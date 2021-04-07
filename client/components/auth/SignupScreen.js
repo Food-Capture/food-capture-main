@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Headline, TextInput, Button, useTheme } from "react-native-paper";
+import {
+  Headline,
+  TextInput,
+  Button,
+  useTheme,
+  Snackbar,
+} from "react-native-paper";
 import { useDispatch } from "react-redux";
 
-import { signup } from "../../redux/actions/auth";
+import API from "../../api";
+import { login } from "../../redux/actions/auth";
 
 const SignupScreen = (props) => {
   const dispatch = useDispatch();
@@ -16,11 +23,40 @@ const SignupScreen = (props) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [showError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const signupHandler = async () => {
     try {
-      await dispatch(signup(name, email, password));
+      // reject if passwords do not match
+      if (password !== confirmPassword) {
+        // display error
+        setErrorMessage("Passwords do not match");
+        setShowError(true);
+        setPassword("");
+        setConfirmPassword("");
+        Keyboard.dismiss();
+        return;
+      }
+
+      const response = await API.post("auth/signup", {
+        name,
+        email,
+        password,
+      });
+
+      await dispatch(login(response.data.token, response.data.userId));
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        setErrorMessage(error.response.data.message);
+        setShowError(true);
+        // clear fields
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        Keyboard.dismiss();
+      }
     }
   };
 
@@ -89,6 +125,16 @@ const SignupScreen = (props) => {
           </Button>
         </View>
       </ScrollView>
+      <Snackbar
+        visible={showError}
+        onDismiss={() => {
+          setShowError(false);
+        }}
+        duration={3000}
+        style={{ backgroundColor: "red" }}
+      >
+        {errorMessage}
+      </Snackbar>
     </SafeAreaView>
   );
 };

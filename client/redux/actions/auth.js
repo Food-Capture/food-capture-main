@@ -34,29 +34,22 @@ export const signup = (name, email, password) => {
   };
 };
 
-export const login = (email, password) => {
+export const login = (token, userId) => {
   return async (dispatch) => {
     try {
-      const response = await API.post("auth/login", {
-        email,
-        password,
-      });
-
-      if (response.status != 200) throw new Error("Login failed");
-
       // store user data in async storage
       await AsyncStorage.setItem(
         "@user",
         JSON.stringify({
-          token: response.data.token,
-          userId: response.data.userId,
+          token,
+          userId,
         })
       );
 
       // store login data in store
       dispatch({
         type: LOGIN,
-        payload: response.data,
+        payload: { token, userId },
       });
     } catch (error) {
       throw error;
