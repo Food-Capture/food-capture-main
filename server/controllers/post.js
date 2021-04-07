@@ -36,7 +36,9 @@ exports.createPost = asyncHandler(async (req, res, next) => {
 exports.getPosts = asyncHandler(async (req, res, next) => {
   const page = req.query.page || 1;
   const postsPerPage = 10;
-  let filter = {};
+  const currentDate = new Date();
+  console.log(currentDate);
+  let filter = { collectBy: { $gt: currentDate } };
 
   const result = await Post.paginate(filter, {
     page,
