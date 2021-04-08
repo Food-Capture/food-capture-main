@@ -46,7 +46,7 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
     sort: { createdAt: -1 },
   });
 
-  res.json({
+  res.status(200).json({
     posts: result.docs,
     totalCount: result.total,
     totalPages: Math.ceil(result.total / postsPerPage),
