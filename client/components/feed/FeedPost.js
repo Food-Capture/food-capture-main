@@ -45,7 +45,7 @@ const FeedPost = (props) => {
               {props.post.location}
             </Text>
             <Text style={styles.field}>
-              <Text style={styles.fieldName}>Collected by: </Text>{" "}
+              <Text style={styles.fieldName}>Collect by: </Text>{" "}
               {new Date(props.post.collectBy).toLocaleString()}
             </Text>
           </Card.Content>
