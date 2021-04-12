@@ -60,10 +60,13 @@ const LoginScreen = (props) => {
         <Subheading
           style={[
             styles.subheading,
-            { color: colors.primary, fontFamily: fonts.regular.fontFamily },
+            {
+              color: colors.primary,
+              fontFamily: fonts.regular.fontFamily,
+            },
           ]}
         >
-          Some subheading text can be inserted here
+          Reducing Food Wastage Through Community Distribution
         </Subheading>
       </View>
       <View style={styles.inputs}>
